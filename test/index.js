@@ -59,6 +59,10 @@ describe('query parser', () => {
     expect(
       parser.parseQuery({id: 1}, 'SELECT * FROM user WHERE id = :id', adapter)
     ).to.equal('SELECT * FROM user WHERE id = 1')
+
+    expect(
+      parser.parseQuery({id: 1}, "SELECT * FROM user WHERE timestamp = '0000-00-00 00:00:00' OR id = :id", adapter)
+    ).to.equal("SELECT * FROM user WHERE timestamp = '0000-00-00 00:00:00' OR id = 1")
   })
 
   it('should replace multiple occurences of the same named parameter correctly', () => {
